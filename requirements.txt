@@ -1,7 +1,7 @@
-tensorflow
+streamlit
+tensorflow-cpu
 numpy
 scipy
 matplotlib
 scikit-learn
-streamlit
 pywavelets
