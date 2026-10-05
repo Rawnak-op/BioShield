@@ -170,5 +170,5 @@ while st.session_state.run:
 - **SNR Improvement:** `{snr_gain:.2f} dB`
 """)
 
-        time.sleep(0.05)
+        time.sleep(1.0)
 
