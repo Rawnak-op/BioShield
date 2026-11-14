@@ -108,7 +108,8 @@ Input (1000, 1)  [2.0 s @ 500 Hz]
 ```
 BioShield/
 │
-├── app2.py                                # Flagship Streamlit production web application
+├── main.py                                # Production FastAPI REST microservice & interactive dashboard
+├── app2.py                                # Alternative Streamlit web application
 ├── model.py                               # 1D-CNN architecture definition
 ├── signal_generator.py                    # Multi-Gaussian ECG & 4 EMI noise mathematical models
 ├── train.py                               # Training, test evaluation & model serialization pipeline
@@ -118,8 +119,8 @@ BioShield/
 ├── emi_ecg_model.h5                       # Serialized trained neural network weights (~150 KB)
 ├── X_test.npy / y_test.npy                # Hold-out test dataset (600 samples)
 ├── BioShield_Full_Project_Handoff_Context.pdf # Full engineering handoff specification PDF
-├── render.yaml                            # Cloud deployment configuration
-├── requirements.txt                       # Dependency manifest (tensorflow-cpu, scipy, pywt)
+├── render.yaml                            # Cloud deployment configuration (Uvicorn REST API)
+├── requirements.txt                       # Dependency manifest (FastAPI, Uvicorn, TensorFlow-CPU, SciPy, PyWavelets)
 └── README.md                              # Technical documentation
 ```
 
@@ -134,6 +135,23 @@ Clone the repository and install dependencies in a virtual environment:
 git clone https://github.com/Rawnak-op/BioShield.git
 cd BioShield
 pip install -r requirements.txt
+```
+
+### 2. Launch the High-Performance REST API & Dashboard
+Start the production FastAPI server (with hot reload enabled for development):
+
+```bash
+uvicorn main:app --reload --port 8000
+```
+
+* **Web Dashboard:** Open `http://localhost:8000` for the real-time client-side animated ECG console.
+* **Interactive OpenAPI/Swagger Docs:** Open `http://localhost:8000/docs` to test the REST endpoints (`/health`, `/api/step`, `/api/process`).
+
+### 3. (Optional) Run the Streamlit Prototype
+If you wish to run the legacy Streamlit interface:
+
+```bash
+streamlit run app2.py
 ```
 
 ### 2. Model Training & Evaluation
